@@ -117,7 +117,7 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
           <div style={{ position: "absolute", inset: "-5%", width: "110%", height: "110%" }}>
             <iframe
-              src="https://www.youtube.com/embed/LHPRABbBlu4?autoplay=1&mute=1&loop=1&playlist=LHPRABbBlu4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+              src="https://www.youtube.com/embed/LHPRABbBlu4?autoplay=1&mute=1&loop=1&playlist=LHPRABbBlu4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&start=143"
               style={{ width: "100%", height: "100%", border: "none" }}
               allow="autoplay; encrypted-media"
               title="background"
