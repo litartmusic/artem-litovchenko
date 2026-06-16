@@ -9,35 +9,35 @@ const PORTFOLIO_ITEMS = [
   {
     title: "As We Breathe",
     type: "Film",
-    description: '"As We Breathe" is a feature film for which Artem Litovchenko composed the original score, shaping emotion through sound and building a complete musical world that supports the film\'s story and atmosphere. He handled the entire audio process — from editing and comping to dynamic shaping, premixing, and final stem delivery.',
+    description: 'Film - Original soundtrack',
     poster: "/works/as_we_breathe_poster.webp",
     video: "/works/as_we_breathe.mp4",
   },
   {
     title: "Gentle as Moss on Stone",
     type: "Film",
-    description: 'For "Gentle as Moss on Stone", directed by boredomresearch, Artem Litovchenko composed and recorded a 10-minute original soundtrack from scratch. His work covered the full audio production process — from editing and comping to dynamic shaping, premixing, and final stem delivery.',
+    description: 'Film - Original soundtrack',
     poster: "/works/gentle_as_moss_poster.webp",
     video: "/works/gentle_as_moss.mp4",
   },
   {
     title: "Call of the Silent Cell",
     type: "Film",
-    description: 'For "Call of the Silent Cell", directed by boredomresearch, Artem Litovchenko composed and recorded an original 10-minute soundtrack. The project was a deep exploration of sound, silence, and tension, where music becomes part of the narrative itself.',
+    description: 'Film - Original soundtrack',
     poster: "/works/call_of_silent_cell_poster.png",
     video: "/works/call_of_silent_cell.mp4",
   },
   {
     title: "Pra Onde Levam as Ondas",
     type: "Film",
-    description: 'For "Pra Onde Levam as Ondas", directed by Dan Albuk, Artem Litovchenko composed and recorded an original 30-minute soundtrack. A deeply immersive project in which he shaped the film\'s musical world from the ground up, translating emotion, silence, and movement into sound.',
+    description: 'Film - Original soundtrack',
     poster: "/works/pra_onde_poster.jpg",
     video: "/works/pra_onde.mp4",
   },
   {
     title: "All the Light We Cannot See",
     type: "Film",
-    description: 'For "All the Light We Cannot See", directed by Seyhmus Altun, Artem Litovchenko composed and recorded an original 5-minute soundtrack. Translating emotion into music, he shaped the atmosphere and brought the story to life through sound.',
+    description: 'Film - Original soundtrack',
     poster: "/works/all_the_light_poster.jpg",
     video: "/works/all_the_light.mp4",
   },
@@ -180,41 +180,36 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ABOUT */}
+{/* ABOUT */}
       <section id="about" style={{ padding: "8rem 2rem 4rem", maxWidth: "1000px", margin: "0 auto" }}>
         <FadeIn>
-          <div className="about-top-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start", marginBottom: "4rem" }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, lineHeight: 1.2 }}>
-              Music that tells<br />stories
-            </h2>
-            <div style={{ paddingTop: "1.8rem" }}>
-              <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.8rem" }}>Specialties</p>
-              {["Film Scoring", "Game Soundtracks", "Remote Cello Recording"].map((skill, i) => (
-                <div key={i} style={{ padding: "0.4rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: "0.85rem", color: "var(--text)", letterSpacing: "0.05em" }}>
-                  {skill}
-                </div>
-              ))}
-            </div>
-          </div>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, lineHeight: 1.2, textAlign: "center", marginBottom: "4rem" }}>
+            Music that tells stories
+          </h2>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="about-bottom-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem" }}>
+          <div className="about-bottom-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
             <img
               src="/artem.jpg"
               alt="Artem Litovchenko"
-              style={{ width: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(15%)", display: "block", maxHeight: "600px" }}
+              style={{ width: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(15%)", display: "block" }}
             />
             <div>
-              <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1.5rem" }}>About</p>
-              <p style={{ color: "var(--muted)", lineHeight: 1.9, fontSize: "0.95rem", marginBottom: "1.2rem" }}>
-                Artem Litovchenko is a Ukrainian cellist and composer. He graduated from Kharkiv National University of Arts with a degree in cello performance and performed with the Kharkiv Philharmonic Orchestra from 2016 to 2021.
-              </p>
-              <p style={{ color: "var(--muted)", lineHeight: 1.9, fontSize: "0.95rem", marginBottom: "1.2rem" }}>
-                An active voice in the independent Ukrainian music scene, Artem is a member of the art-rock band Sheetel. Today, he works from his own studio as a composer and remote session cellist, contributing to album releases and soundtracks that have reached millions of streams worldwide.
-              </p>
-              <p style={{ color: "var(--muted)", lineHeight: 1.9, fontSize: "0.95rem" }}>
-                His music has found its way into films, video games, and recording sessions for artists across the globe — always with the same intention: to serve the story.
-              </p>
+              <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.8rem" }}>Specialties</p>
+              {["Film Scoring", "Game Soundtracks", "Remote Cello Recording"].map((skill, i) => (
+                <div key={i} style={{ padding: "0.4rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: "0.85rem", color: "var(--text)", letterSpacing: "0.05em", marginBottom: "0.1rem" }}>
+                  {skill}
+                </div>
+              ))}
+              <div style={{ marginTop: "2.5rem" }}>
+                <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1.2rem" }}>About</p>
+                <p style={{ color: "var(--muted)", lineHeight: 1.9, fontSize: "0.95rem", marginBottom: "1.2rem" }}>
+                  Artem Litovchenko is a Ukrainian cellist and composer. He graduated from Kharkiv National University of Arts with a degree in cello performance and performed with the Kharkiv Philharmonic Orchestra from 2016 to 2021.
+                </p>
+                <p style={{ color: "var(--muted)", lineHeight: 1.9, fontSize: "0.95rem" }}>
+                  An active voice in the independent Ukrainian music scene, Artem is a member of the art-rock band Sheetel. Today, he works from his own studio as a composer and remote session cellist, contributing to album releases and soundtracks that have reached millions of streams worldwide.
+                </p>
+              </div>
             </div>
           </div>
         </FadeIn>
@@ -268,7 +263,7 @@ export default function Home() {
       <section style={{ padding: "6rem 0", background: "var(--bg)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
           <FadeIn>
-            <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Remote Cello</p>
+            <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Remote Recordings</p>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, marginBottom: "3.5rem", lineHeight: 1.2 }}>
               Cello Recordings
             </h2>
