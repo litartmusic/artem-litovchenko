@@ -45,3 +45,19 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--gold-dim);
 }
+@media (max-width: 768px) {
+  .about-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .about-bottom-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .about-bottom-grid img {
+    max-height: 400px !important;
+    width: 100% !important;
+  }
+}
