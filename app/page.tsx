@@ -118,11 +118,11 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
-const portfolioRef = useRef<HTMLDivElement>(null);
-  const soloRef = useRef<HTMLDivElement>(null);
-  const celloRef = useRef<HTMLDivElement>(null);
+const portfolioRef = useRef<HTMLDivElement | null>(null);
+  const soloRef = useRef<HTMLDivElement | null>(null);
+  const celloRef = useRef<HTMLDivElement | null>(null);
 
-  const scroll = (ref: React.RefObject<HTMLDivElement>, dir: "left" | "right") => {
+  const scroll = (ref: React.MutableRefObject<HTMLDivElement | null>, dir: "left" | "right") => {
     if (ref.current) ref.current.scrollBy({ left: dir === "right" ? 320 : -320, behavior: "smooth" });
   };
   useEffect(() => {
