@@ -544,7 +544,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
                               <span style={{ fontSize: "0.75rem", color: "var(--muted)", width: "20px", textAlign: "right" }}>{ti + 1}</span>
                               <span style={{ fontSize: "0.85rem", color: "var(--text)", flex: 1 }}>{track.name}</span>
-                              <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{track.duration}</span>
+                             
                             </div>
                             <audio controls src={track.src} style={{ width: "100%", height: "28px", accentColor: "var(--gold)" }} />
                           </div>
