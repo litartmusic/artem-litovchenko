@@ -322,7 +322,9 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
             }}
           >
           {PORTFOLIO_ITEMS.map((item, i) => (
-            onClick={() => setActiveVideo((item.video || "") + "|" + item.title + "|" + item.description)}
+            <div
+              key={i}
+              onClick={() => setActiveVideo((item.video || "") + "|" + item.title + "|" + item.description)}
               style={{ flexShrink: 0, width: "280px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s" }}
               onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.5)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".overlay") as HTMLDivElement; if (o) o.style.opacity = "1"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.15)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".overlay") as HTMLDivElement; if (o) o.style.opacity = "0"; }}
