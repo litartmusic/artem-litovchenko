@@ -9,7 +9,7 @@ const PORTFOLIO_ITEMS = [
   {
     title: "As We Breathe",
     type: "Film",
-    description: '"As We Breathe" is a feature film for which Artem Litovchenko composed the original score, shaping emotion through sound and building a complete musical world that supports the film\'s story and atmosphere. He handled the entire audio process — from editing and comping to dynamic shaping, premixing, and final stem delivery.',
+    description: 'Film - Original soundtrack',
     poster: "/works/as_we_breathe_poster.webp",
     video: "/works/as_we_breathe.mp4",
     tracks: [
@@ -527,7 +527,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               <div style={{ width: "100%", maxWidth: "700px", background: "var(--surface)", border: "1px solid rgba(201,169,110,0.2)" }}
                 onClick={e => e.stopPropagation()}
               >
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0" }}>
+                <div style={{ display: "grid", gridTemplateColumns: isDesktop ? "1fr 1fr" : "1fr" }}>
                   <img src={item.cover} alt={item.title} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }} />
                   <div style={{ padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                     <div>
@@ -540,9 +540,13 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                         {item.tracks.map((track, ti) => (
-                          <div key={ti}>
-                            <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: "0.5rem", letterSpacing: "0.05em" }}>{track.name}</p>
-                            <audio controls src={track.src} style={{ width: "100%", accentColor: "var(--gold)" }} />
+                          <div key={ti} style={{ padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+                              <span style={{ fontSize: "0.75rem", color: "var(--muted)", width: "20px", textAlign: "right" }}>{ti + 1}</span>
+                              <span style={{ fontSize: "0.85rem", color: "var(--text)", flex: 1 }}>{track.name}</span>
+                              <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{track.duration}</span>
+                            </div>
+                            <audio controls src={track.src} style={{ width: "100%", height: "28px", accentColor: "var(--gold)" }} />
                           </div>
                         ))}
                       </div>
@@ -590,11 +594,13 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
                   <div style={{ borderTop: "1px solid rgba(201,169,110,0.15)", paddingTop: "1.5rem" }}>
                     <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Soundtrack</p>
                     {portfolioItem.tracks.map((track, ti) => (
-                      <div key={ti} style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                        <span style={{ fontSize: "0.75rem", color: "var(--muted)", width: "20px", textAlign: "right" }}>{ti + 1}</span>
-                        <span style={{ fontSize: "0.85rem", color: "var(--text)", flex: 1 }}>{track.name}</span>
-                        <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{track.duration}</span>
-                        <audio controls src={track.src} style={{ height: "28px", accentColor: "var(--gold)" }} />
+                      <div key={ti} style={{ padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+                          <span style={{ fontSize: "0.75rem", color: "var(--muted)", width: "20px", textAlign: "right" }}>{ti + 1}</span>
+                          <span style={{ fontSize: "0.85rem", color: "var(--text)", flex: 1 }}>{track.name}</span>
+                          <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{track.duration}</span>
+                        </div>
+                        <audio controls src={track.src} style={{ width: "100%", height: "28px", accentColor: "var(--gold)" }} />
                       </div>
                     ))}
                   </div>
