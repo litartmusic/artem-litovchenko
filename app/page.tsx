@@ -29,7 +29,7 @@ const PORTFOLIO_ITEMS = [
       { name: "Sick Animals", duration: "1:05", src: "/works/awb_14_sick_animals.mp3" },
       { name: "Covered in Blood", duration: "2:20", src: "/works/awb_15_covered_in_blood.mp3" },
     ],
-  },,
+  },
   {
     title: "Gentle as Moss on Stone",
     type: "Film",
@@ -317,7 +317,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
 <button onClick={() => scroll(portfolioRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
 </button>
-          <div ref={portfolioRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
+          <div ref={portfolioRef} className="scroll-center" style={{ display: "flex", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -328,7 +328,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          >
+          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
           {PORTFOLIO_ITEMS.map((item, i) => (
             <div
               key={i}
@@ -352,6 +352,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           ))}
         </div>
         </div>
+        </div>
       </section>
 {/* SOLO WORK */}
       <section id="solo" style={{ padding: "3rem 0", background: "var(--bg)" }}>
@@ -372,7 +373,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           <button onClick={() => scroll(soloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
-          <div ref={soloRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
+          <div ref={soloRef} className="scroll-center" style={{ display: "flex", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -383,7 +384,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          >
+          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
           {SOLO_ITEMS.map((item, i) => (
             <div key={i}
               onClick={() => setActiveVideo(`solo|${i}|${item.title}`)}
@@ -406,6 +407,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           ))}
         </div>
         </div>
+        </div>
       </section>
       {/* CELLO RECORDINGS */}
       <section id="cello" style={{ padding: "3rem 0", background: "var(--surface)" }}>
@@ -424,7 +426,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           <button onClick={() => scroll(celloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
-          <div ref={celloRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
+          <div ref={celloRef} className="scroll-center" style={{ display: "flex", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -435,7 +437,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          >
+          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
           {CELLO_ITEMS.map((item, i) => (
             <div key={i} onClick={() => setActiveVideo(`yt|${item.youtubeId}|${item.title}|${item.artist}`)}
               style={{ flexShrink: 0, width: "320px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s", background: "var(--surface)" }}
@@ -457,6 +459,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               </div>
             </div>
           ))}
+        </div>
         </div>
         </div>
       </section>
