@@ -117,6 +117,14 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 769);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 const portfolioRef = useRef<HTMLDivElement | null>(null);
   const soloRef = useRef<HTMLDivElement | null>(null);
@@ -167,8 +175,8 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
             }}>
               {[
                 { label: "Film & Game Soundtrack", href: "#portfolio" },
-                { label: "Solo Work", href: "#cello" },
-                { label: "Remote Cello Recording", href: "#solo" },
+                { label: "Solo Work", href: "#solo" },
+                { label: "Remote Cello Recording", href: "#cello" },
               ].map(item => (
                 <a key={item.label} href={item.href} style={{
                   display: "block", padding: "0.6rem 1.5rem",
@@ -309,7 +317,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
 <button onClick={() => scroll(portfolioRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
 </button>
-          <div ref={portfolioRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: "center" }}
+          <div ref={portfolioRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -324,7 +332,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           {PORTFOLIO_ITEMS.map((item, i) => (
             <div
               key={i}
-              onClick={() => setActiveVideo((item.video || "") + "|" + item.title + "|" + item.description)}
+              onClick={() => setActiveVideo(`film|${i}|${item.title}`)}
               style={{ flexShrink: 0, width: "280px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s" }}
               onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.5)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".overlay") as HTMLDivElement; if (o) o.style.opacity = "1"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.15)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".overlay") as HTMLDivElement; if (o) o.style.opacity = "0"; }}
@@ -346,7 +354,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
         </div>
       </section>
 {/* SOLO WORK */}
-      <section id="cello" style={{ padding: "3rem 0", background: "var(--surface)" }}>
+      <section id="solo" style={{ padding: "3rem 0", background: "var(--bg)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
           <FadeIn>
             <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Portfolio</p>
@@ -364,7 +372,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           <button onClick={() => scroll(soloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
-          <div ref={celloRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: "center" }}
+          <div ref={soloRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -400,7 +408,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
         </div>
       </section>
       {/* CELLO RECORDINGS */}
-      <section id="solo" style={{ padding: "3rem 0", background: "var(--bg)" }}>
+      <section id="cello" style={{ padding: "3rem 0", background: "var(--surface)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
           <FadeIn>
             <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Portfolio</p>
@@ -416,7 +424,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           <button onClick={() => scroll(celloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
-          <div ref={celloRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
+          <div ref={celloRef} className="scroll-center" style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: isDesktop ? "center" : "flex-start" }}
             onMouseDown={e => {
               const el = e.currentTarget;
               el.style.cursor = "grabbing";
@@ -547,11 +555,11 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
         }
 
         const isYoutube = parts[0] === "yt";
-        const videoSrc = isYoutube ? parts[1] : parts[0];
-        const videoTitle = isYoutube ? parts[2] : parts[1];
-        const videoDesc = isYoutube ? parts[3] : parts[2];
-        const itemIndex = !isYoutube ? PORTFOLIO_ITEMS.findIndex(i => i.video === parts[0]) : -1;
-        const portfolioItem = itemIndex >= 0 ? PORTFOLIO_ITEMS[itemIndex] : null;
+        const isFilm = parts[0] === "film";
+        const videoSrc = isYoutube ? parts[1] : "";
+        const videoTitle = parts[2] || "";
+        const videoDesc = isYoutube ? parts[3] : "";
+        const portfolioItem = isFilm ? PORTFOLIO_ITEMS[parseInt(parts[1])] : null;
         return (
           <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(0,0,0,0.92)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}
             onClick={() => setActiveVideo(null)}
@@ -565,15 +573,19 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
                     src={`https://www.youtube.com/embed/${videoSrc}?autoplay=1`}
                     allow="autoplay; encrypted-media" title={videoTitle} />
                 </div>
-              ) : (
-                <video src={videoSrc} controls autoPlay style={{ width: "100%", display: "block", maxHeight: "50vh", background: "#000" }} />
-              )}
+              ) : isFilm && portfolioItem ? (
+                <video src={portfolioItem.video} controls autoPlay style={{ width: "100%", display: "block", maxHeight: "50vh", background: "#000" }} />
+              ) : null}
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "0.5rem" }}>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 300 }}>{videoTitle}</h3>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 300 }}>{isFilm && portfolioItem ? portfolioItem.title : videoTitle}</h3>
                   <button onClick={() => setActiveVideo(null)} style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", fontSize: "1.5rem", lineHeight: 1, padding: "0 0.5rem" }}>×</button>
                 </div>
-                {videoDesc && <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "1.5rem" }}>{videoDesc}</p>}
+                {isFilm && portfolioItem ? (
+                  <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "1.5rem" }}>{portfolioItem.description}</p>
+                ) : videoDesc ? (
+                  <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "1.5rem" }}>{videoDesc}</p>
+                ) : null}
                 {portfolioItem && portfolioItem.tracks && portfolioItem.tracks.length > 0 && (
                   <div style={{ borderTop: "1px solid rgba(201,169,110,0.15)", paddingTop: "1.5rem" }}>
                     <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Soundtrack</p>
