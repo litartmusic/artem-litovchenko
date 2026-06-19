@@ -9,16 +9,34 @@ const PORTFOLIO_ITEMS = [
   {
     title: "As We Breathe",
     type: "Film",
-    description: 'Film - Original soundtrack',
+    description: '"As We Breathe" is a feature film for which Artem Litovchenko composed the original score, shaping emotion through sound and building a complete musical world that supports the film\'s story and atmosphere. He handled the entire audio process — from editing and comping to dynamic shaping, premixing, and final stem delivery.',
     poster: "/works/as_we_breathe_poster.webp",
     video: "/works/as_we_breathe.mp4",
-  },
+    tracks: [
+      { name: "Factory Explosion", duration: "2:20", src: "/works/awb_01_factory_explosion.wav" },
+      { name: "Soldiers", duration: "1:19", src: "/works/awb_02_soldiers.wav" },
+      { name: "Hopeful Moments", duration: "1:30", src: "/works/awb_03_hopeful_moments.wav" },
+      { name: "Fight", duration: "1:54", src: "/works/awb_04_fight.wav" },
+      { name: "Car Ride", duration: "1:19", src: "/works/awb_05_car_ride.wav" },
+      { name: "Order to Evacuate", duration: "1:48", src: "/works/awb_06_order_to_evacuate.wav" },
+      { name: "Getaway", duration: "2:13", src: "/works/awb_07_getaway.wav" },
+      { name: "Market", duration: "1:12", src: "/works/awb_08_market.wav" },
+      { name: "The Family's Situation Is Worsening", duration: "1:11", src: "/works/awb_09_family_situation.wav" },
+      { name: "Toward the Fire", duration: "1:59", src: "/works/awb_10_toward_the_fire.wav" },
+      { name: "Realization", duration: "2:01", src: "/works/awb_11_realization.wav" },
+      { name: "Disappointment", duration: "1:16", src: "/works/awb_12_disappointment.wav" },
+      { name: "Esma Takes Action", duration: "1:15", src: "/works/awb_13_esma_takes_action.wav" },
+      { name: "Sick Animals", duration: "1:05", src: "/works/awb_14_sick_animals.wav" },
+      { name: "Covered in Blood", duration: "2:20", src: "/works/awb_15_covered_in_blood.wav" },
+    ],
+  },,
   {
     title: "Gentle as Moss on Stone",
     type: "Film",
     description: 'Film - Original soundtrack',
     poster: "/works/gentle_as_moss_poster.webp",
     video: "/works/gentle_as_moss.mp4",
+    tracks: [],
   },
   {
     title: "Call of the Silent Cell",
@@ -26,6 +44,7 @@ const PORTFOLIO_ITEMS = [
     description: 'Film - Original soundtrack',
     poster: "/works/call_of_silent_cell_poster.png",
     video: "/works/call_of_silent_cell.mp4",
+    tracks: [],
   },
   {
     title: "Pra Onde Levam as Ondas",
@@ -33,6 +52,7 @@ const PORTFOLIO_ITEMS = [
     description: 'Film - Original soundtrack',
     poster: "/works/pra_onde_poster.jpg",
     video: "/works/pra_onde.mp4",
+    tracks: [],
   },
   {
     title: "All the Light We Cannot See",
@@ -40,6 +60,27 @@ const PORTFOLIO_ITEMS = [
     description: 'Film - Original soundtrack',
     poster: "/works/all_the_light_poster.jpg",
     video: "/works/all_the_light.mp4",
+    tracks: [],
+  },
+];
+const SOLO_ITEMS = [
+  {
+    title: "Hope / Despair",
+    year: "2026",
+    cover: "/works/hope_despair_cover.jpg",
+    tracks: [
+      { name: "Hope", src: "/works/hope.wav" },
+      { name: "Despair", src: "/works/despair.wav" },
+    ],
+  },
+  {
+    title: "future?",
+    year: "2025",
+    cover: "/works/future_cover.jpg",
+    tracks: [
+      { name: "what", src: "/works/what.wav" },
+      { name: "future?", src: "/works/future.wav" },
+    ],
   },
 ];
 
@@ -77,7 +118,13 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+const portfolioRef = useRef<HTMLDivElement>(null);
+  const soloRef = useRef<HTMLDivElement>(null);
+  const celloRef = useRef<HTMLDivElement>(null);
 
+  const scroll = (ref: React.RefObject<HTMLDivElement>, dir: "left" | "right") => {
+    if (ref.current) ref.current.scrollBy({ left: dir === "right" ? 320 : -320, behavior: "smooth" });
+  };
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll);
@@ -98,17 +145,47 @@ export default function Home() {
         borderBottom: scrolled ? "1px solid rgba(201,169,110,0.1)" : "none",
       }}>
         <div style={{ display: "flex", gap: "2.5rem" }}>
-          {NAV_LINKS.map(link => (
-            <a key={link} href={`#${link.toLowerCase()}`} style={{
-              fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-              color: "var(--muted)", textDecoration: "none", transition: "color 0.3s",
-            }}
+          <a href="#about" style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+          >About</a>
+
+          <div style={{ position: "relative" }}
+            onMouseEnter={e => { const d = (e.currentTarget as HTMLDivElement).querySelector(".nav-dropdown") as HTMLDivElement; if (d) { d.style.opacity = "1"; d.style.pointerEvents = "all"; }}}
+            onMouseLeave={e => { const d = (e.currentTarget as HTMLDivElement).querySelector(".nav-dropdown") as HTMLDivElement; if (d) { d.style.opacity = "0"; d.style.pointerEvents = "none"; }}}
+          >
+            <a href="#portfolio" style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s", display: "block", paddingBottom: "1rem" }}
               onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
               onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
-            >
-              {link}
-            </a>
-          ))}
+            >Portfolio</a>
+            <div className="nav-dropdown" style={{
+              position: "absolute", top: "100%", left: 0,
+              background: "rgba(8,10,15,0.96)", border: "1px solid rgba(201,169,110,0.15)",
+              backdropFilter: "blur(12px)", padding: "0.5rem 0",
+              opacity: 0, pointerEvents: "none", transition: "opacity 0.2s",
+              minWidth: "220px",
+            }}>
+              {[
+                { label: "Film & Game Soundtrack", href: "#portfolio" },
+                { label: "Solo Work", href: "#cello" },
+                { label: "Remote Cello Recording", href: "#solo" },
+              ].map(item => (
+                <a key={item.label} href={item.href} style={{
+                  display: "block", padding: "0.6rem 1.5rem",
+                  fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "var(--muted)", textDecoration: "none", transition: "color 0.2s",
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+                >{item.label}</a>
+              ))}
+            </div>
+          </div>
+
+          <a href="#contact" style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+          >Contact</a>
         </div>
       </nav>
 
@@ -216,27 +293,34 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO */}
-      <section id="portfolio" style={{ padding: "6rem 0", background: "var(--surface)" }}>
+      <section id="portfolio" style={{ padding: "3rem 0", background: "var(--surface)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
           <FadeIn>
             <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Portfolio</p>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, marginBottom: "3.5rem", lineHeight: 1.2 }}>
-              Selected Works
+              Film & Game Soundtrack
             </h2>
           </FadeIn>
         </div>
-        <div style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
-          onMouseDown={e => {
-            const el = e.currentTarget;
-            el.style.cursor = "grabbing";
-            const startX = e.pageX - el.offsetLeft;
-            const scrollLeft = el.scrollLeft;
-            const onMove = (e: MouseEvent) => { el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX); };
-            const onUp = () => { el.style.cursor = "grab"; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
-            window.addEventListener("mousemove", onMove);
-            window.addEventListener("mouseup", onUp);
-          }}
-        >
+        <div style={{ position: "relative" }}>
+          <button onClick={() => scroll(portfolioRef, "left")} style={{ position: "absolute", left: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+</button>
+<button onClick={() => scroll(portfolioRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+</button>
+          <div ref={portfolioRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: "center" }}
+            onMouseDown={e => {
+              const el = e.currentTarget;
+              el.style.cursor = "grabbing";
+              const startX = e.pageX - el.offsetLeft;
+              const scrollLeft = el.scrollLeft;
+              const onMove = (e: MouseEvent) => { el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX); };
+              const onUp = () => { el.style.cursor = "grab"; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+              window.addEventListener("mousemove", onMove);
+              window.addEventListener("mouseup", onUp);
+            }}
+          >
           {PORTFOLIO_ITEMS.map((item, i) => (
             <div key={i} onClick={() => setActiveVideo(item.video + "|" + item.title + "|" + item.description)}
               style={{ flexShrink: 0, width: "280px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s" }}
@@ -257,30 +341,91 @@ export default function Home() {
             </div>
           ))}
         </div>
+        </div>
       </section>
-
-      {/* CELLO RECORDINGS */}
-      <section style={{ padding: "6rem 0", background: "var(--bg)" }}>
+{/* SOLO WORK */}
+      <section id="cello" style={{ padding: "3rem 0", background: "var(--surface)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
           <FadeIn>
-            <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Remote Recordings</p>
+            <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Portfolio</p>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, marginBottom: "3.5rem", lineHeight: 1.2 }}>
-              Cello Recordings
+              Solo Work
             </h2>
           </FadeIn>
         </div>
-        <div style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
-          onMouseDown={e => {
-            const el = e.currentTarget;
-            el.style.cursor = "grabbing";
-            const startX = e.pageX - el.offsetLeft;
-            const scrollLeft = el.scrollLeft;
-            const onMove = (e: MouseEvent) => { el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX); };
-            const onUp = () => { el.style.cursor = "grab"; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
-            window.addEventListener("mousemove", onMove);
-            window.addEventListener("mouseup", onUp);
-          }}
-        >
+
+        {/* Horizontal scroll */}
+        <div style={{ position: "relative" }}>
+          <button onClick={() => scroll(soloRef, "left")} style={{ position: "absolute", left: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button onClick={() => scroll(soloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div ref={celloRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab", justifyContent: "center" }}
+            onMouseDown={e => {
+              const el = e.currentTarget;
+              el.style.cursor = "grabbing";
+              const startX = e.pageX - el.offsetLeft;
+              const scrollLeft = el.scrollLeft;
+              const onMove = (e: MouseEvent) => { el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX); };
+              const onUp = () => { el.style.cursor = "grab"; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+              window.addEventListener("mousemove", onMove);
+              window.addEventListener("mouseup", onUp);
+            }}
+          >
+          {SOLO_ITEMS.map((item, i) => (
+            <div key={i}
+              onClick={() => setActiveVideo(`solo|${i}|${item.title}`)}
+              style={{ flexShrink: 0, width: "280px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.5)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".solo-overlay") as HTMLDivElement; if (o) o.style.opacity = "1"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201,169,110,0.15)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; const o = (e.currentTarget as HTMLDivElement).querySelector(".solo-overlay") as HTMLDivElement; if (o) o.style.opacity = "0"; }}
+            >
+              <img src={item.cover} alt={item.title} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }} />
+              <div className="solo-overlay" style={{ position: "absolute", inset: 0, background: "rgba(8,10,15,0.75)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", opacity: 0, transition: "opacity 0.3s" }}>
+                <div style={{ width: "56px", height: "56px", borderRadius: "50%", border: "2px solid var(--gold)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                  <div style={{ width: 0, height: 0, borderTop: "9px solid transparent", borderBottom: "9px solid transparent", borderLeft: "16px solid var(--gold)", marginLeft: "4px" }} />
+                </div>
+                <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>Listen</p>
+              </div>
+              <div style={{ padding: "1rem 1.2rem", background: "var(--surface)" }}>
+                <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.3rem" }}>{item.year}</p>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 400, color: "var(--text)" }}>{item.title}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
+      </section>
+      {/* CELLO RECORDINGS */}
+      <section id="solo" style={{ padding: "3rem 0", background: "var(--bg)" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 2rem" }}>
+          <FadeIn>
+            <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Portfolio</p>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300, marginBottom: "3.5rem", lineHeight: 1.2 }}>
+              Remote Cello Recording
+            </h2>
+          </FadeIn>
+        </div>
+        <div style={{ position: "relative" }}>
+          <button onClick={() => scroll(celloRef, "left")} style={{ position: "absolute", left: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button onClick={() => scroll(celloRef, "right")} style={{ position: "absolute", right: "0.5rem", top: "45%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(8,10,15,0.8)", border: "1px solid rgba(201,169,110,0.4)", color: "var(--gold)", width: "40px", height: "40px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div ref={celloRef} style={{ display: "flex", gap: "1.5rem", overflowX: "auto", padding: "0 2rem 2rem", scrollbarWidth: "none", cursor: "grab" }}
+            onMouseDown={e => {
+              const el = e.currentTarget;
+              el.style.cursor = "grabbing";
+              const startX = e.pageX - el.offsetLeft;
+              const scrollLeft = el.scrollLeft;
+              const onMove = (e: MouseEvent) => { el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX); };
+              const onUp = () => { el.style.cursor = "grab"; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp); };
+              window.addEventListener("mousemove", onMove);
+              window.addEventListener("mouseup", onUp);
+            }}
+          >
           {CELLO_ITEMS.map((item, i) => (
             <div key={i} onClick={() => setActiveVideo(`yt|${item.youtubeId}|${item.title}|${item.artist}`)}
               style={{ flexShrink: 0, width: "320px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s", background: "var(--surface)" }}
@@ -302,6 +447,7 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
@@ -357,18 +503,58 @@ export default function Home() {
         </p>
       </footer>
 
-      {/* VIDEO POPUP */}
+{/* VIDEO POPUP */}
       {activeVideo && (() => {
         const parts = activeVideo.split("|");
+        const type = parts[0];
+
+        if (type === "solo") {
+          const item = SOLO_ITEMS[parseInt(parts[1])];
+          return (
+            <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(0,0,0,0.92)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}
+              onClick={() => setActiveVideo(null)}
+            >
+              <div style={{ width: "100%", maxWidth: "700px", background: "var(--surface)", border: "1px solid rgba(201,169,110,0.2)" }}
+                onClick={e => e.stopPropagation()}
+              >
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0" }}>
+                  <img src={item.cover} alt={item.title} style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }} />
+                  <div style={{ padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                    <div>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
+                        <div>
+                          <p style={{ fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.4rem" }}>{item.year}</p>
+                          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", fontWeight: 300 }}>{item.title}</h3>
+                        </div>
+                        <button onClick={() => setActiveVideo(null)} style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", fontSize: "1.5rem", lineHeight: 1 }}>×</button>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                        {item.tracks.map((track, ti) => (
+                          <div key={ti}>
+                            <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: "0.5rem", letterSpacing: "0.05em" }}>{track.name}</p>
+                            <audio controls src={track.src} style={{ width: "100%", accentColor: "var(--gold)" }} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
         const isYoutube = parts[0] === "yt";
         const videoSrc = isYoutube ? parts[1] : parts[0];
         const videoTitle = isYoutube ? parts[2] : parts[1];
         const videoDesc = isYoutube ? parts[3] : parts[2];
+        const itemIndex = !isYoutube ? PORTFOLIO_ITEMS.findIndex(i => i.video === parts[0]) : -1;
+        const portfolioItem = itemIndex >= 0 ? PORTFOLIO_ITEMS[itemIndex] : null;
         return (
           <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(0,0,0,0.92)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}
             onClick={() => setActiveVideo(null)}
           >
-            <div style={{ width: "100%", maxWidth: "900px", background: "var(--surface)", border: "1px solid rgba(201,169,110,0.2)" }}
+            <div style={{ width: "100%", maxWidth: "900px", background: "var(--surface)", border: "1px solid rgba(201,169,110,0.2)", maxHeight: "90vh", overflowY: "auto" }}
               onClick={e => e.stopPropagation()}
             >
               {isYoutube ? (
@@ -378,20 +564,32 @@ export default function Home() {
                     allow="autoplay; encrypted-media" title={videoTitle} />
                 </div>
               ) : (
-                <video src={videoSrc} controls autoPlay style={{ width: "100%", display: "block", maxHeight: "60vh", background: "#000" }} />
+                <video src={videoSrc} controls autoPlay style={{ width: "100%", display: "block", maxHeight: "50vh", background: "#000" }} />
               )}
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "0.5rem" }}>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 300 }}>{videoTitle}</h3>
                   <button onClick={() => setActiveVideo(null)} style={{ background: "none", border: "none", color: "var(--muted)", cursor: "pointer", fontSize: "1.5rem", lineHeight: 1, padding: "0 0.5rem" }}>×</button>
                 </div>
-                {videoDesc && <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.9rem" }}>{videoDesc}</p>}
+                {videoDesc && <p style={{ color: "var(--muted)", lineHeight: 1.8, fontSize: "0.9rem", marginBottom: "1.5rem" }}>{videoDesc}</p>}
+                {portfolioItem && portfolioItem.tracks && portfolioItem.tracks.length > 0 && (
+                  <div style={{ borderTop: "1px solid rgba(201,169,110,0.15)", paddingTop: "1.5rem" }}>
+                    <p style={{ fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>Soundtrack</p>
+                    {portfolioItem.tracks.map((track, ti) => (
+                      <div key={ti} style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                        <span style={{ fontSize: "0.75rem", color: "var(--muted)", width: "20px", textAlign: "right" }}>{ti + 1}</span>
+                        <span style={{ fontSize: "0.85rem", color: "var(--text)", flex: 1 }}>{track.name}</span>
+                        <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{track.duration}</span>
+                        <audio controls src={track.src} style={{ height: "28px", accentColor: "var(--gold)" }} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
         );
       })()}
-
-    </main>
+          </main>
   );
 }
