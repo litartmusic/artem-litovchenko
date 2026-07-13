@@ -166,8 +166,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
           <div style={{ position: "relative" }}
             onMouseEnter={e => { const d = (e.currentTarget as HTMLDivElement).querySelector(".nav-dropdown") as HTMLDivElement; if (d) { d.style.opacity = "1"; d.style.pointerEvents = "all"; }}}
             onMouseLeave={e => { const d = (e.currentTarget as HTMLDivElement).querySelector(".nav-dropdown") as HTMLDivElement; if (d) { d.style.opacity = "0"; d.style.pointerEvents = "none"; }}}
-          ><a href="#portfolio" onClick={e => smoothScroll(e, "#portfolio")} style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s", display: "block", paddingBottom: "1rem" }}
-            
+          ><a href="#portfolio" className="nav-link" onClick={e => smoothScroll(e, "#portfolio")} style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s", display: "block", paddingBottom: "1rem" }}
               onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
               onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
             >Portfolio</a>
@@ -183,7 +182,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
                 { label: "Solo Work", href: "#solo" },
                 { label: "Remote Cello Recording", href: "#cello" },
               ].map(item => (
-                <a key={item.label} href={item.href} onClick={e => smoothScroll(e, item.href)} style={{
+                <a key={item.label} href={item.href} className="nav-link" onClick={e => smoothScroll(e, item.href)} style={{
                   display: "block", padding: "0.6rem 1.5rem",
                   fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase",
                   color: "var(--muted)", textDecoration: "none", transition: "color 0.2s",
@@ -194,7 +193,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               ))}
             </div>
           </div>
-<a href="#contact" onClick={e => smoothScroll(e, "#contact")} style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s" }}
+<a href="#contact" className="nav-link" onClick={e => smoothScroll(e, "#contact")} style={{ fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--muted)", textDecoration: "none", transition: "color 0.3s" }}
           
             onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
