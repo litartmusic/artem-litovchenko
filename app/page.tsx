@@ -332,7 +332,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
+          ><div style={{ display: "flex", gap: "1.5rem", minWidth: "max-content" }}>
           {PORTFOLIO_ITEMS.map((item, i) => (
             <div
               key={i}
@@ -388,7 +388,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
+          ><div style={{ display: "flex", gap: "1.5rem", minWidth: "max-content" }}>
           {SOLO_ITEMS.map((item, i) => (
             <div key={i}
               onClick={() => setActiveVideo(`solo|${i}|${item.title}`)}
@@ -441,7 +441,7 @@ const portfolioRef = useRef<HTMLDivElement | null>(null);
               window.addEventListener("mousemove", onMove);
               window.addEventListener("mouseup", onUp);
             }}
-          ><div style={{ display: "flex", gap: "1.5rem", margin: "0 auto" }}>
+          ><div style={{ display: "flex", gap: "1.5rem", minWidth: "max-content" }}>
           {CELLO_ITEMS.map((item, i) => (
             <div key={i} onClick={() => setActiveVideo(`yt|${item.youtubeId}|${item.title}|${item.artist}`)}
               style={{ flexShrink: 0, width: "320px", cursor: "pointer", position: "relative", overflow: "hidden", border: "1px solid rgba(201,169,110,0.15)", transition: "border-color 0.3s, transform 0.3s", background: "var(--surface)" }}
